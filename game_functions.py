@@ -5,22 +5,20 @@ import pygame
 
 
 def check_keyup_event(event, ship):
-    """检测按键释放"""
+    """按键释放事件响应"""
     ship.stop()
 
 def check_keydown_event(event, ship):
-    """检测按键按下"""
+    """按键按下事件响应"""
     if pygame.K_RIGHT == event.key:
         # 向右移动飞船
         ship.moving('right')
-        ship.update()
     if pygame.K_LEFT == event.key:
         # 向左移动飞船
         ship.moving('left')
-        ship.update()
 
 def check_event(ship):
-    #监视键盘和鼠标事件
+    """检测按键事件"""
     for event in pygame.event.get():
         if pygame.QUIT == event.type:
             sys.exit()

@@ -4,7 +4,6 @@ import pygame
 
 
 class Ship():
-
     def __init__(self, scrren):
         """初始化飞船并设置其初始位置"""
         self.scrren = scrren
@@ -28,7 +27,6 @@ class Ship():
 
     def update(self):
         """根据移动标志调整飞船的位置"""
-
         if True == self.__moving_riht and self.rect.right < self.scrren_rect.right:
             self.self_center += self.speed_factor
 
@@ -38,10 +36,12 @@ class Ship():
         self.rect.centerx = self.self_center
 
     def moving(self, direction):
+        """移动飞船"""
         if 'left' == direction:
             self.__moving_left = True
         elif 'right' == direction:
             self.__moving_riht = True
+        self.update()
 
     def stop(self):
         """停止移动,将移动标志位都设置为FALSE"""
