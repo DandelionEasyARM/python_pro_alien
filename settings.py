@@ -12,4 +12,9 @@ class Settings():
         self.scrren_height = 800
         self.bg_color = (100, 100, 100)
 
+    def set_ship(self, ship, speed):
+        ship.set_move_speed(speed)
+
+class Setting_Ship():
+    """飞船通用设置集合"""
 
