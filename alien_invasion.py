@@ -6,6 +6,9 @@ import pygame
 from settings import Settings
 from ship import Ship
 import game_functions as gf
+from pygame.sprite import Group
+import bullet as Bullte
+
 
 def run_game():
     """初始化游戏并创建一个屏幕对象"""
@@ -15,12 +18,10 @@ def run_game():
     scrren = pygame.display.set_mode((ai_settings.scrren_width, ai_settings.scrren_height))
     pygame.display.set_caption("Alien Invasion")
 
-#   设置背景颜色
-    bg_color = (230, 230, 230)
-
 #   创建一艘飞船
     ship = Ship(scrren)
-    ship.set_move_speed(5)
+    ai_settings.set_ship_default(ship)
+    # bullets = Group()
 
 #   开始游戏的主循环
     while True:
@@ -28,8 +29,9 @@ def run_game():
         gf.check_event(ship)
 
         # 每次循环时都重绘屏幕
-        gf.update_scrren(ai_settings, scrren, ship)
-        ship.update()
+        # bullets.update()
+        gf.redraw_scrren(ai_settings, scrren, ship)
+
 
 print run_game.__doc__
 run_game()
