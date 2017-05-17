@@ -10,10 +10,10 @@ class Bullet(Sprite):
         """对飞船所处的位置创建一个子弹对象"""
         super(Bullet, self).__init__()
         self.__scrren = scrren
-        self.__width = 3
-        self.__height = 15
-        self.__color = 60, 60, 60
-        self.__speed = 1
+        self.__width = ship.get_bullets_width()
+        self.__height = ship.get_bullets_height()
+        self.__color = ship.get_bullets_color()
+        self.__speed = ship.get_bullets_speed()
 
         # 在（0,0）处创建一个表示子弹的矩形，再设置正确的位置
         self.__rect = pygame.Rect(0, 0, self.__width, self.__height)

@@ -26,8 +26,8 @@ class Ship():
 
         # 设置对应的子弹
         self.__bullet_speed = 1
-        self.__bullet_width = 10
-        self.__bullet_height = 25
+        self.__bullet_width = 3
+        self.__bullet_height = 10
         self.__bullet_color = 0, 0, 0
 
         self.__bullets = Group()
@@ -82,6 +82,21 @@ class Ship():
     def get_bullets(self):
         return self.__bullets
 
+    def get_bullets_width(self):
+        return self.__bullet_width
+
+    def get_bullets_height(self):
+        return self.__bullet_height
+
+    def get_bullets_color(self):
+        return self.__bullet_color
+
+    def get_bullets_speed(self):
+        return self.__bullet_speed
+
+    def get_bullets_allowed(self):
+        return self.__bullet_allowed
+
     def set_bullets(self, width, height, color, speed):
         self.__bullet_width = width
         self.__bullet_height = height
@@ -97,4 +112,6 @@ class Ship():
                                 self.__bullet_height,
                                 self.__bullet_speed,
                                 self.__bullet_color)
+            new_bullet = Bullet(self.__scrren, self)
             self.__bullets.add(new_bullet)
+

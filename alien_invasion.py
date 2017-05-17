@@ -21,7 +21,6 @@ def run_game():
 #   创建一艘飞船
     ship = Ship(scrren)
     ai_settings.set_ship_default(ship)
-    # bullets = Group()
 
 #   开始游戏的主循环
     while True:

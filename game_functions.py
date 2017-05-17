@@ -23,6 +23,9 @@ def check_keydown_event(event, ship):
         # 空格键，飞船开火
         ship.fire_bullets()
 
+    if pygame.K_ESCAPE == event.key:
+        sys.exit()
+
 
 def check_event(ship):
     """检测按键事件"""
