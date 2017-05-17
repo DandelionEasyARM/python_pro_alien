@@ -31,6 +31,7 @@ class Settings():
     def set_ship_default(self, ship):
         ship.set_move_speed(self.ship_speed)
         ship.set_bullet_allowed(self.ship_bullet_allowed)
+        ship.set_bullets(self.bullet_width, self.bullet_height, self.bullet_color, self.bullet_speed)
 
     def set_bullet_info(self, bullet, width, height, speed, color):
         bullet.setting_info(width, height, speed, color)
