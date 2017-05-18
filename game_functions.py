@@ -4,6 +4,7 @@ import sys
 import pygame
 import bullet as BULLET
 from bullet import *
+from alien import *
 
 
 def check_keyup_event(event, ship):
@@ -38,32 +39,49 @@ def check_event(ship):
             check_keyup_event(event, ship)
 
 
+def redraw_ship(ship):
+    # 重绘飞船
+    ship.blitme()
+
+
 def redraw_bullet(bullets):
-    bullets.update()
     # 在飞船和外星人后面重绘所有子弹
+    bullets.update()
     for bullet in bullets.copy():
         BULLET.delete_bullte(bullet, bullets)
 
     for bullet in bullets.sprites():
         bullet.draw_bullet()
+    # print len(bullets)
 
-    print len(bullets)
 
-def redraw_scrren(ai_settings, scrren, ship):
+def redraw_alien(scrren, aliens):
+    aliens.update()
+    # aliens_num = len(aliens)
+    # aliens.draw(scrren)
+
+
+def redraw_scrren(bg_color, scrren, ship, aliens):
     """更新屏幕上的图像"""
-    # 每次循环时都重绘屏幕
-    scrren.fill(ai_settings.bg_color)
+    # 1.重刷背景
+    scrren.fill(bg_color)
 
-    bullets = ship.get_bullets()
-    redraw_bullet(bullets)
+    # 2.重绘飞船
+    redraw_ship(ship)
 
-    ship.blitme()
+    # 3.重绘子弹
+    redraw_bullet(ship.get_bullets())
+
+    # 4.重绘外星人
+    redraw_alien(scrren, aliens)
+
     # 让最近绘图的屏幕可见
     pygame.display.flip()
-    ship.update()
-    bullets.update()
 
 
-
-
+def creat_fleet_alien(screen, aliens, aliens_num):
+    """创建一群外星人"""
+    for alien in range(aliens_num):
+        alien = Alien(screen)
+        aliens.add(alien)
 

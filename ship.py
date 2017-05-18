@@ -9,15 +9,23 @@ class Ship():
     def __init__(self, scrren):
         """初始化飞船并设置其初始位置"""
         self.__scrren = scrren
-        self.__image = pygame.image.load('ship.png')
+        # 通过配置文件加载图像
+        # ship_file_object = open('ship_image_name.txt', 'r')
+        # image_name =ship_file_object.readlines(0)
+        # print type(image_name)
+        # print image_name[0]
+        # image_name_ex = image_name[0]
+        # self.__image = pygame.image.load(image_name_ex)
+        # ship_file_object.close()
+        self.__image = pygame.image.load_extended('ship.png')
         self.__rect = self.__image.get_rect()
         self.__scrren_rect = scrren.get_rect()
+
 
         # 持续移动标志
         self.__moving_riht = False
         self.__moving_left = False
         self.__speed_factor = 1
-
 
         # 将每艘飞船防止在屏幕底部中央
         self.__rect.centerx = (self.__scrren_rect.right + self.__scrren_rect.left) / 2
@@ -39,10 +47,10 @@ class Ship():
 
     def update(self):
         """根据移动标志调整飞船的位置"""
-        if True == self.__moving_riht and self.__rect.right < self.__scrren_rect.right:
+        if (True is self.__moving_riht) and self.__rect.right < self.__scrren_rect.right:
             self.__self_center += self.__speed_factor
 
-        if True == self.__moving_left and self.__rect.left > self.__scrren_rect.left:
+        if (True is self.__moving_left) and self.__rect.left > self.__scrren_rect.left:
             self.__self_center -= self.__speed_factor
 
         self.__rect.centerx = self.__self_center
@@ -102,7 +110,6 @@ class Ship():
         self.__bullet_height = height
         self.__bullet_color = color
         self.__bullet_speed = speed
-
 
     def fire_bullets(self):
         # 限定子弹数量
