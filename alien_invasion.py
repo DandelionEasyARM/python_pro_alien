@@ -25,13 +25,11 @@ def run_game():
 
     # 创建外星人
     aliens = Group()
+
     alien_num = ai_settings.cal_alien_num_line_default(scrren)
     print alien_num
     gf.creat_fleet_alien(scrren, aliens, alien_num)
-    ai_settings.set_alien_info_default(aliens, alien_num)
-
-
-
+    ai_settings.set_alien_info_default(aliens)
 
 #   开始游戏的主循环
     while True:

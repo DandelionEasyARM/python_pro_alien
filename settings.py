@@ -28,8 +28,10 @@ class Settings():
         self.alien_speed = 1
         self.alien_max_num = 10
         #
-        self.alien_min_distance_alien = 50
-        self.alien_min_distance_wall = 40
+        self.alien_width = 60
+        self.alien_height = 60
+        self.alien_min_distance_alien = 20
+        self.alien_min_distance_wall = 10
         self.alien_min_distance_bottom = 30
         self.alien_min_distance_top = 60
 
@@ -57,30 +59,32 @@ class Settings():
                                self.bullet_speed,
                                self.bullet_color)
 
-    def cal_alien_num_line(self, alien_distance_alien, alien_distance_wall, scrren):
+    def cal_alien_num_line(self, alien_distance_alien, alien_distance_wall, alien_width, scrren):
         """计算一行可以放置多少个外星人"""
         # 屏幕宽度 = （外星人数 - 1）* 外星人间距 + 2 * 外星人到墙距离
         scrren_rect = scrren.get_rect()
-        alien_num = int(scrren_rect.width - 2 * alien_distance_wall) / alien_distance_alien + 1
+        alien_num = int((scrren_rect.width - 2 * alien_distance_wall + alien_distance_alien) \
+                    / (alien_distance_alien + alien_width))
         return alien_num
 
     def cal_alien_num_line_default(self, scrren):
         """计算一行可以放置多少外星人"""
         scrren_rect = scrren.get_rect()
-        return int((scrren_rect.width - 2 * self.alien_min_distance_wall) / self.alien_min_distance_alien + 1)
+        num = int((scrren_rect.width - 2 * self.alien_min_distance_wall + self.alien_width) \
+                  / (self.alien_min_distance_alien + self.alien_width))
+        return num
 
-    def set_alien_info_default(self, aliens, alien_num):
+    def set_alien_info_default(self, aliens):
         """设置外星人属性"""
         num = 1
         for alien in aliens:
 
             rect = alien.get_rect()
             alien_width = alien.get_width()
-            alien_height = alien.get_height()
+            # alien_height = alien.get_height()
             rect.y = self.alien_min_distance_bottom
             rect.x = self.alien_min_distance_wall + (num - 1) * (alien_width + self.alien_min_distance_alien)
             alien.set_rect(rect)
             num += 1
-            print num
-            print alien.get_rect()
+
         return True

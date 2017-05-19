@@ -12,10 +12,9 @@ class Alien(Sprite):
         """初始化外星人"""
         super(Alien, self).__init__()
         self.__screen = screen
-        self.__image = 'alien.png'
 
         # 加载外星人图像
-        self.__image = pygame.image.load('alien.png')
+        self.__image = pygame.image.load_extended('alien.png')
         self.__rect = self.__image.get_rect()
 
         # 每个外星人最初都在屏幕左上角附近
@@ -43,7 +42,7 @@ class Alien(Sprite):
 
     def update(self):
         """重写更新函数,根据移动规则改变外星人位置"""
-        self.__y += self.__speed
+        # self.__y += self.__speed
         # self.__x += self.__speed
         self.__rect.y = self.__y
         # self.__rect.x = self.__x

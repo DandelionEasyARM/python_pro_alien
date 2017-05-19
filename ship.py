@@ -21,7 +21,6 @@ class Ship():
         self.__rect = self.__image.get_rect()
         self.__scrren_rect = scrren.get_rect()
 
-
         # 持续移动标志
         self.__moving_riht = False
         self.__moving_left = False
