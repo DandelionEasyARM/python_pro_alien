@@ -77,8 +77,8 @@ class Settings():
 
         row_num = int( (scrren_rect.height - self.alien_min_distance_bottom - self.alien_min_distance_top  \
                        + self.alien_height) /(self.alien_min_distance_row + self.alien_height))
-        if 4 < row_num:
-            row_num = 4
+        if 6 < row_num:
+            row_num = 6
         # row_num -= 2
         alien_num['list_num'] = list_num
         alien_num['row_num'] = row_num
@@ -99,9 +99,8 @@ class Settings():
 
             list_num += 1
             if list_num > alien_num['list_num']:
-                print list_num
-                print row_num
                 list_num = 1
                 row_num += 1
+
 
         return True

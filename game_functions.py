@@ -55,12 +55,15 @@ def redraw_bullet(bullets):
     # print len(bullets)
 
 
-def redraw_alien(aliens):
+def redraw_alien(aliens, scrren):
     # aliens.update()
     # aliens_num = len(aliens)
     # aliens.draw(scrren)
     # print len(aliens)
+    print len(aliens)
     for alien in aliens:
+        alien.update()
+        print alien.get_rect()
         alien.blitme()
 
 
@@ -76,7 +79,7 @@ def redraw_scrren(bg_color, scrren, ship, aliens):
     redraw_bullet(ship.get_bullets())
 
     # 4.重绘外星人
-    redraw_alien(aliens)
+    redraw_alien(aliens, scrren)
 
     # 让最近绘图的屏幕可见
     pygame.display.flip()

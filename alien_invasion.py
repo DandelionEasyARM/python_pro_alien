@@ -8,6 +8,7 @@ from ship import Ship
 # from alien import Alien
 import game_functions as gf
 from pygame.sprite import Group
+import time
 # import bullet as Bullte
 
 
@@ -25,9 +26,7 @@ def run_game():
 
     # 创建外星人
     aliens = Group()
-
     alien_num = ai_settings.cal_alien_num_line_default(scrren)
-    print alien_num
     gf.creat_fleet_alien(scrren, aliens, alien_num)
     ai_settings.set_alien_info_default(aliens, alien_num)
 
@@ -45,6 +44,7 @@ def run_game():
         # 3.重绘屏幕
         gf.redraw_scrren(ai_settings.bg_color, scrren, ship, aliens)
 
+        # time.sleep(1)
 
 print run_game.__doc__
 run_game()

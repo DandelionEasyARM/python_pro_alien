@@ -18,9 +18,9 @@ class Alien(Sprite):
         self.__rect = self.__image.get_rect()
 
         # 每个外星人最初都在屏幕左上角附近
-        self.__rect.x = self.__rect.width
-        self.__rect.y = self.__rect.height
-        self.__center = self.__rect.centerx
+        self.__rect.x = 0
+        self.__rect.y = 0
+        self.__center = 0
 
         # 存储外星人准确的位置
         self.__x = float(self.__rect.x)
@@ -42,11 +42,13 @@ class Alien(Sprite):
 
     def update(self):
         """重写更新函数,根据移动规则改变外星人位置"""
-        # self.__y += self.__speed
-        # self.__x += self.__speed
-        # self.__rect.y = self.__y
-        # self.__rect.x = self.__x
-        # self.__center = self.__rect.centerx
+        # self.__x = self.__rect.x
+        # self.__y = self.__rect.y
+        self.__center = self.__rect.centerx
+        self.__y += self.__speed
+        self.__x += self.__speed
+        self.__rect.y = self.__y
+        self.__rect.x = self.__x
 
     def moving(self):
         """移动外星人"""
@@ -63,24 +65,32 @@ class Alien(Sprite):
 
     def set_rect(self, rect):
         self.__rect = rect
+        self.__x = rect.x
+        self.__y = rect.y
         return True
 
     def get_rect(self):
         return self.__rect
 
-    def set_width(self, width):
-        self.__rect.x = width
+    def set_x(self, x):
+        self.__rect.x = x
         return True
 
-    def get_width(self):
+    def get_x(self):
         return self.__rect.x
 
-    def set_height(self, height):
-        self.__rect.y = height
+    def set_y(self, y):
+        self.__rect.y = y
         return True
 
-    def get_height(self):
+    def get_y(self):
         return self.__rect.y
+
+    def get_width(self):
+        return self.__rect.width
+
+    def get_height(self):
+        return self.__rect.height
 
     def get_self_center(self):
         return self.__center
