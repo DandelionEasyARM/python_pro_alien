@@ -44,9 +44,9 @@ class Alien(Sprite):
         """重写更新函数,根据移动规则改变外星人位置"""
         # self.__y += self.__speed
         # self.__x += self.__speed
-        self.__rect.y = self.__y
+        # self.__rect.y = self.__y
         # self.__rect.x = self.__x
-        self.__center = self.__rect.centerx
+        # self.__center = self.__rect.centerx
 
     def moving(self):
         """移动外星人"""
@@ -86,10 +86,10 @@ class Alien(Sprite):
         return self.__center
 
     def get_distance_alien(self):
-        return self.__distance_alien
+        return self.__min_distance_alien
 
     def get_distance_wall(self):
-        return self.__distance_wall
+        return self.__min_distance_wall
 
 
 

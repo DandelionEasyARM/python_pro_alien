@@ -12,11 +12,11 @@ class Settings():
         # 屏幕设置
         self.scrren_width = 1200
         self.scrren_height = 800
-        self.bg_color = (255, 255, 255)
+        self.bg_color = (230, 230, 230)
 
         # 飞船设置
-        self.ship_speed = 1.5
-        self.ship_bullet_allowed = 10
+        self.ship_speed = 10
+        self.ship_bullet_allowed = 100
 
         # 子弹设置
         self.bullet_speed = 1
@@ -30,9 +30,10 @@ class Settings():
         #
         self.alien_width = 60
         self.alien_height = 60
-        self.alien_min_distance_alien = 20
+        self.alien_min_distance_list = 10
+        self.alien_min_distance_row = 10
         self.alien_min_distance_wall = 10
-        self.alien_min_distance_bottom = 30
+        self.alien_min_distance_bottom = 10
         self.alien_min_distance_top = 60
 
     def set_ship(self, ship, speed, bullet):
@@ -69,22 +70,38 @@ class Settings():
 
     def cal_alien_num_line_default(self, scrren):
         """计算一行可以放置多少外星人"""
+        alien_num = {}
         scrren_rect = scrren.get_rect()
-        num = int((scrren_rect.width - 2 * self.alien_min_distance_wall + self.alien_width) \
-                  / (self.alien_min_distance_alien + self.alien_width))
-        return num
+        list_num = int((scrren_rect.width - 2 * self.alien_min_distance_wall + self.alien_width) \
+                  / (self.alien_min_distance_list + self.alien_width))
 
-    def set_alien_info_default(self, aliens):
+        row_num = int( (scrren_rect.height - self.alien_min_distance_bottom - self.alien_min_distance_top  \
+                       + self.alien_height) /(self.alien_min_distance_row + self.alien_height))
+        if 4 < row_num:
+            row_num = 4
+        # row_num -= 2
+        alien_num['list_num'] = list_num
+        alien_num['row_num'] = row_num
+        return alien_num
+
+    def set_alien_info_default(self, aliens, alien_num):
         """设置外星人属性"""
-        num = 1
+        row_num = 1
+        list_num = 1
         for alien in aliens:
 
             rect = alien.get_rect()
             alien_width = alien.get_width()
-            # alien_height = alien.get_height()
-            rect.y = self.alien_min_distance_bottom
-            rect.x = self.alien_min_distance_wall + (num - 1) * (alien_width + self.alien_min_distance_alien)
+            alien_height = alien.get_height()
+            rect.y = self.alien_min_distance_bottom + (row_num - 1) * (alien_height + self.alien_min_distance_row)
+            rect.x = self.alien_min_distance_wall + (list_num - 1) * (alien_width + self.alien_min_distance_list)
             alien.set_rect(rect)
-            num += 1
+
+            list_num += 1
+            if list_num > alien_num['list_num']:
+                print list_num
+                print row_num
+                list_num = 1
+                row_num += 1
 
         return True

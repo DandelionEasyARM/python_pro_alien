@@ -59,6 +59,7 @@ def redraw_alien(aliens):
     # aliens.update()
     # aliens_num = len(aliens)
     # aliens.draw(scrren)
+    # print len(aliens)
     for alien in aliens:
         alien.blitme()
 
@@ -83,7 +84,9 @@ def redraw_scrren(bg_color, scrren, ship, aliens):
 
 def creat_fleet_alien(screen, aliens, aliens_num):
     """创建一群外星人"""
-    for alien in range(aliens_num):
-        alien = Alien(screen)
-        aliens.add(alien)
+    for row in range(aliens_num['row_num']):
+        for alien in range(aliens_num['list_num']):
+            alien = Alien(screen)
+            aliens.add(alien)
 
+    print len(aliens)
