@@ -15,17 +15,24 @@ class Alien(Sprite):
 
         # 加载外星人图像
         self.__image = pygame.image.load_extended('alien.png')
-        self.__rect = self.__image.get_rect()
+        self.rect = self.__image.get_rect()
+        self.__scrren_right = self.__screen.get_width()
+        # self.__screen_left = self.__rect.x
+        self.__scrren_left = 0
+        self.__scrren_top = self.__screen.get_height()
+        # self.__screen_bottom = self.__rect.y
+        self.__scrren_botoom = 0
 
         # 每个外星人最初都在屏幕左上角附近
-        self.__rect.x = 0
-        self.__rect.y = 0
+        self.rect.x = 0
+        self.rect.y = 0
         self.__center = 0
 
         # 存储外星人准确的位置
-        self.__x = float(self.__rect.x)
-        self.__y = float(self.__rect.y)
+        self.__x = float(self.rect.x)
+        self.__y = float(self.rect.y)
 
+        self.__fleet_direction = 'left'
         self.__speed = 1
         self.__min_distance_alien = 50
         self.__min_distance_wall = 40
@@ -38,17 +45,26 @@ class Alien(Sprite):
 
     def blitme(self):
         """在指定的位置绘制外星人"""
-        self.__screen.blit(self.__image, self.__rect)
+        self.__screen.blit(self.__image, self.rect)
 
     def update(self):
         """重写更新函数,根据移动规则改变外星人位置"""
         # self.__x = self.__rect.x
         # self.__y = self.__rect.y
-        self.__center = self.__rect.centerx
+        # self.__center = self.__rect.centerx
+        if (self.rect.x + self.rect.width) >= self.__scrren_right:
+            self.__fleet_direction = 'left'
+        elif self.rect.x <= self.__scrren_left:
+            self.__fleet_direction = 'right'
+
+        if self.__fleet_direction == 'right':
+            self.__x += self.__speed
+        elif self.__fleet_direction == 'left':
+            self.__x -= self.__speed
+
         self.__y += self.__speed
-        self.__x += self.__speed
-        self.__rect.y = self.__y
-        self.__rect.x = self.__x
+        self.rect.y = self.__y
+        self.rect.x = self.__x
 
     def moving(self):
         """移动外星人"""
@@ -63,34 +79,38 @@ class Alien(Sprite):
     def get_scrren(self):
         return self.__screen
 
+    def set_speed(self, speed):
+        self.__speed = speed
+        return True
+
     def set_rect(self, rect):
-        self.__rect = rect
+        self.rect = rect
         self.__x = rect.x
         self.__y = rect.y
         return True
 
     def get_rect(self):
-        return self.__rect
+        return self.rect
 
     def set_x(self, x):
-        self.__rect.x = x
+        self.rect.x = x
         return True
 
     def get_x(self):
-        return self.__rect.x
+        return self.rect.x
 
     def set_y(self, y):
-        self.__rect.y = y
+        self.rect.y = y
         return True
 
     def get_y(self):
-        return self.__rect.y
+        return self.rect.y
 
     def get_width(self):
-        return self.__rect.width
+        return self.rect.width
 
     def get_height(self):
-        return self.__rect.height
+        return self.rect.height
 
     def get_self_center(self):
         return self.__center

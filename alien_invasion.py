@@ -15,8 +15,8 @@ import time
 def run_game():
     """初始化游戏并创建一个屏幕对象"""
     pygame.init()
-    ai_settings = Settings()
 
+    ai_settings = Settings()
     scrren = pygame.display.set_mode((ai_settings.scrren_width, ai_settings.scrren_height))
     pygame.display.set_caption("Alien Invasion")
 
@@ -41,7 +41,10 @@ def run_game():
         # 2.更新外星人数据
         aliens.update()
 
-        # 3.重绘屏幕
+        # 3.命中外星人处理
+        gf.alien_short(scrren, aliens, ship, ai_settings)
+
+        # 4.重绘屏幕
         gf.redraw_scrren(ai_settings.bg_color, scrren, ship, aliens)
 
         # time.sleep(1)

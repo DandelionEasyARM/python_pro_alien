@@ -111,7 +111,7 @@ class Ship():
         self.__bullet_speed = speed
 
     def fire_bullets(self):
-        # 限定子弹数量
+        # 根据限定子弹数发射子弹
         if self.__bullet_allowed > len(self.__bullets):
             new_bullet = Bullet(self.__scrren, self)
             new_bullet.set_info(self.__bullet_width,

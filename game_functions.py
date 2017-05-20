@@ -6,7 +6,6 @@ import bullet as BULLET
 from bullet import *
 from alien import *
 
-
 def check_keyup_event(event, ship):
     """按键释放事件响应"""
     ship.stop()
@@ -55,15 +54,9 @@ def redraw_bullet(bullets):
     # print len(bullets)
 
 
-def redraw_alien(aliens, scrren):
-    # aliens.update()
-    # aliens_num = len(aliens)
-    # aliens.draw(scrren)
-    # print len(aliens)
-    print len(aliens)
+def redraw_alien(aliens):
     for alien in aliens:
         alien.update()
-        print alien.get_rect()
         alien.blitme()
 
 
@@ -79,7 +72,7 @@ def redraw_scrren(bg_color, scrren, ship, aliens):
     redraw_bullet(ship.get_bullets())
 
     # 4.重绘外星人
-    redraw_alien(aliens, scrren)
+    redraw_alien(aliens)
 
     # 让最近绘图的屏幕可见
     pygame.display.flip()
@@ -92,4 +85,17 @@ def creat_fleet_alien(screen, aliens, aliens_num):
             alien = Alien(screen)
             aliens.add(alien)
 
-    print len(aliens)
+
+def alien_short(scrren, aliens, ship, ai_settings):
+    """判断子弹是否命中外星人"""
+    bullets = ship.get_bullets()
+    # 求子弹和外星人交集
+    collisions = pygame.sprite.groupcollide(aliens, bullets, True, False)
+
+    # 外星人都被消灭时重新创建外星人
+    if 0 == len(aliens):
+        bullets.empty()
+        alien_num = ai_settings.cal_alien_num_line_default(scrren)
+        creat_fleet_alien(scrren, aliens, alien_num)
+        ai_settings.set_alien_info_default(aliens, alien_num)
+    # print collisions

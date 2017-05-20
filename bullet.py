@@ -16,24 +16,24 @@ class Bullet(Sprite):
         self.__speed = ship.get_bullets_speed()
 
         # 在（0,0）处创建一个表示子弹的矩形，再设置正确的位置
-        self.__rect = pygame.Rect(0, 0, self.__width, self.__height)
-        self.__rect.centerx = ship.get_self_center()
+        self.rect = pygame.Rect(0, 0, self.__width, self.__height)
+        self.rect.centerx = ship.get_self_center()
         rect = ship.get_rect()
-        self.__rect.top = rect.top
+        self.rect.top = rect.top
 
         # 存储用小数表示的子弹的位置
-        self.__y = float(self.__rect.y)
+        self.__y = float(self.rect.y)
 
     def update(self):
         """向上移动子弹"""
         # 更新表示子弹位置的小数值
         self.__y -= self.__speed
         # 更新表示子弹的rect位置
-        self.__rect.y = self.__y
+        self.rect.y = self.__y
 
     def draw_bullet(self):
         """在屏幕上绘制子弹"""
-        pygame.draw.rect(self.__scrren, self.__color, self.__rect)
+        pygame.draw.rect(self.__scrren, self.__color, self.rect)
 
     def set_info(self, width, height, speed, color):
         """设置子弹基本属性"""
@@ -59,7 +59,7 @@ class Bullet(Sprite):
         return self.__color
 
     def get_rect(self):
-        return self.__rect
+        return self.rect
 
 
 def delete_bullte(bullet, bulltes):

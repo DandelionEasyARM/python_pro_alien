@@ -10,12 +10,12 @@ class Settings():
         """初始化游戏设置"""
 
         # 屏幕设置
-        self.scrren_width = 1200
-        self.scrren_height = 800
+        self.scrren_width = 650
+        self.scrren_height = 1000
         self.bg_color = (230, 230, 230)
 
         # 飞船设置
-        self.ship_speed = 10
+        self.ship_speed = 1
         self.ship_bullet_allowed = 100
 
         # 子弹设置
@@ -25,7 +25,7 @@ class Settings():
         self.bullet_color = 0, 0, 0
 
         # 外星人设置
-        self.alien_speed = 1
+        self.alien_speed = 0.05
         self.alien_max_num = 10
         #
         self.alien_width = 60
@@ -96,11 +96,10 @@ class Settings():
             rect.y = self.alien_min_distance_bottom + (row_num - 1) * (alien_height + self.alien_min_distance_row)
             rect.x = self.alien_min_distance_wall + (list_num - 1) * (alien_width + self.alien_min_distance_list)
             alien.set_rect(rect)
-
+            alien.set_speed(self.alien_speed)
             list_num += 1
             if list_num > alien_num['list_num']:
                 list_num = 1
                 row_num += 1
-
 
         return True
