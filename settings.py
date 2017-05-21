@@ -1,7 +1,7 @@
 # coding: utf-8
 import ship as SHIP
 import bullet as BULLET
-
+import random as Random
 
 class Settings():
     """存储《外星人入侵》的所有设置的类"""
@@ -12,24 +12,26 @@ class Settings():
         # 屏幕设置
         self.scrren_width = 650
         self.scrren_height = 1000
-        self.bg_color = (230, 230, 230)
+        self.bg_color = (255, 255, 255)
 
         # 飞船设置
         self.ship_speed = 1
         self.ship_bullet_allowed = 100
+        self.ship_limit = 3
 
         # 子弹设置
-        self.bullet_speed = 1
+        self.bullet_speed = 5
         self.bullet_width = 3
-        self.bullet_height = 10
+        self.bullet_height = 8
         self.bullet_color = 0, 0, 0
 
         # 外星人设置
-        self.alien_speed = 0.05
+        self.alien_speed_range = {'low': 0.05, 'high': 0.3}
+
         self.alien_max_num = 10
-        #
-        self.alien_width = 60
-        self.alien_height = 60
+
+        self.alien_width = 40
+        self.alien_height = 40
         self.alien_min_distance_list = 10
         self.alien_min_distance_row = 10
         self.alien_min_distance_wall = 10
@@ -96,10 +98,35 @@ class Settings():
             rect.y = self.alien_min_distance_bottom + (row_num - 1) * (alien_height + self.alien_min_distance_row)
             rect.x = self.alien_min_distance_wall + (list_num - 1) * (alien_width + self.alien_min_distance_list)
             alien.set_rect(rect)
-            alien.set_speed(self.alien_speed)
+            alien_speed_set = Random.random()
+            while (alien_speed_set > self.alien_speed_range['high'])  \
+                or (alien_speed_set < self.alien_speed_range['low']):
+                alien_speed_set = Random.random()
+
+            alien.set_speed(alien_speed_set)
             list_num += 1
             if list_num > alien_num['list_num']:
                 list_num = 1
                 row_num += 1
 
         return True
+
+
+class GameState():
+    """游戏状态数据"""
+
+    def __init__(self, ai_settings):
+        """初始化统计和状态信息"""
+        self.ai_settings = ai_settings
+        self.reset_stats()
+        self.game_state = 'running'
+        self.game_active = True
+
+    def reset_stats(self):
+        """初始化在游戏裕兴期间可能变化的统计信息"""
+        self.ships_left = self.ai_settings.ship_limit
+
+
+
+
+

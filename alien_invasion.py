@@ -3,7 +3,7 @@
 
 # import sys
 import pygame
-from settings import Settings
+from settings import *
 from ship import Ship
 # from alien import Alien
 import game_functions as gf
@@ -17,6 +17,8 @@ def run_game():
     pygame.init()
 
     ai_settings = Settings()
+    game_state = GameState(ai_settings)
+    game_state.game_state = 'running'
     scrren = pygame.display.set_mode((ai_settings.scrren_width, ai_settings.scrren_height))
     pygame.display.set_caption("Alien Invasion")
 
@@ -27,7 +29,7 @@ def run_game():
     # 创建外星人
     aliens = Group()
     alien_num = ai_settings.cal_alien_num_line_default(scrren)
-    gf.creat_fleet_alien(scrren, aliens, alien_num)
+    gf.creat_fleet_alien(scrren, game_state, aliens, alien_num)
     ai_settings.set_alien_info_default(aliens, alien_num)
 
 #   开始游戏的主循环
@@ -42,9 +44,12 @@ def run_game():
         aliens.update()
 
         # 3.命中外星人处理
-        gf.alien_short(scrren, aliens, ship, ai_settings)
+        gf.alien_short(scrren, game_state, aliens, ship, ai_settings)
 
-        # 4.重绘屏幕
+        # 4.外星人过线和飞船碰撞处理
+        gf.shiphit_alienoverline(scrren, game_state, ship, aliens)
+
+        # 5.重绘屏幕
         gf.redraw_scrren(ai_settings.bg_color, scrren, ship, aliens)
 
         # time.sleep(1)

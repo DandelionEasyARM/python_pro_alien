@@ -3,6 +3,7 @@
 
 import pygame
 from pygame.sprite import Sprite
+import random as Random
 
 
 class Alien(Sprite):
@@ -32,16 +33,20 @@ class Alien(Sprite):
         self.__x = float(self.rect.x)
         self.__y = float(self.rect.y)
 
-        self.__fleet_direction = 'left'
+        direction_temp = Random.randint(0, 1)
+        if 0 == direction_temp:
+            self.__fleet_direction = 'left'
+        else :
+            self.__fleet_direction = 'right'
         self.__speed = 1
         self.__min_distance_alien = 50
         self.__min_distance_wall = 40
-        self.__current_distance_alien_left = 0
-        self.__current_distance_alien_right = 0
-        self.__current_distance_wall_left = 0
-        self.__current_distance_wall_right = 0
-        self.__current_distance_bottom = 0
-        self.__current_distance_top = 0
+        self.__current_distance_alien_left = -1
+        self.__current_distance_alien_right = -1
+        self.__current_distance_wall_left = -1
+        self.__current_distance_wall_right = -1
+        self.__current_distance_bottom = -1
+        self.__current_distance_top = -1
 
     def blitme(self):
         """在指定的位置绘制外星人"""
@@ -52,6 +57,7 @@ class Alien(Sprite):
         # self.__x = self.__rect.x
         # self.__y = self.__rect.y
         # self.__center = self.__rect.centerx
+
         if (self.rect.x + self.rect.width) >= self.__scrren_right:
             self.__fleet_direction = 'left'
         elif self.rect.x <= self.__scrren_left:
@@ -65,6 +71,11 @@ class Alien(Sprite):
         self.__y += self.__speed
         self.rect.y = self.__y
         self.rect.x = self.__x
+        self.__current_distance_wall_left = self.__x - self.__scrren_left
+        self.__current_distance_wall_right = self.__scrren_right - self.__x - self.rect.width
+        self.__current_distance_bottom = self.__x - self.__scrren_botoom
+        self.__current_distance_top = self.__scrren_top - self.__y - self.rect.height
+
 
     def moving(self):
         """移动外星人"""
@@ -120,6 +131,18 @@ class Alien(Sprite):
 
     def get_distance_wall(self):
         return self.__min_distance_wall
+
+    def get_distance_wall_left(self):
+        return self.__current_distance_wall_left
+
+    def get_distance_wall_right(self):
+        return self.__current_distance_alien_right
+
+    def get_distance_wall_bottom(self):
+        return self.__current_distance_bottom
+
+    def get_distance_wall_top(self):
+        return self.__current_distance_top
 
 
 

@@ -18,7 +18,7 @@ class Ship():
         # self.__image = pygame.image.load(image_name_ex)
         # ship_file_object.close()
         self.__image = pygame.image.load_extended('ship.png')
-        self.__rect = self.__image.get_rect()
+        self.rect = self.__image.get_rect()
         self.__scrren_rect = scrren.get_rect()
 
         # 持续移动标志
@@ -27,9 +27,9 @@ class Ship():
         self.__speed_factor = 1
 
         # 将每艘飞船防止在屏幕底部中央
-        self.__rect.centerx = (self.__scrren_rect.right + self.__scrren_rect.left) / 2
-        self.__rect.bottom = self.__scrren_rect.bottom
-        self.__self_center = self.__rect.centerx
+        self.rect.centerx = (self.__scrren_rect.right + self.__scrren_rect.left) / 2
+        self.rect.bottom = self.__scrren_rect.bottom
+        self.__self_center = self.rect.centerx
 
         # 设置对应的子弹
         self.__bullet_speed = 1
@@ -42,17 +42,17 @@ class Ship():
 
     def blitme(self):
         """在指定位置放置飞船"""
-        self.__scrren.blit(self.__image, self.__rect)
+        self.__scrren.blit(self.__image, self.rect)
 
     def update(self):
         """根据移动标志调整飞船的位置"""
-        if (True is self.__moving_riht) and self.__rect.right < self.__scrren_rect.right:
+        if (True is self.__moving_riht) and self.rect.right < self.__scrren_rect.right:
             self.__self_center += self.__speed_factor
 
-        if (True is self.__moving_left) and self.__rect.left > self.__scrren_rect.left:
+        if (True is self.__moving_left) and self.rect.left > self.__scrren_rect.left:
             self.__self_center -= self.__speed_factor
 
-        self.__rect.centerx = self.__self_center
+        self.rect.centerx = self.__self_center
 
     def moving(self, direction):
         """移动飞船"""
@@ -61,6 +61,9 @@ class Ship():
         elif 'right' == direction:
             self.__moving_riht = True
         self.update()
+
+    def center_ship(self):
+        self.__self_center = self.__scrren_rect.centerx
 
     def stop(self):
         """停止移动,将移动标志位都设置为FALSE"""
@@ -75,7 +78,7 @@ class Ship():
         return self.__scrren
 
     def get_rect(self):
-        return self.__rect
+        return self.rect
 
     def get_self_center(self):
         return self.__self_center
