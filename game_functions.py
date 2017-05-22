@@ -87,17 +87,17 @@ def creat_fleet_alien(screen, game_state, aliens, aliens_num):
             aliens.add(alien)
 
 
-def alien_short(scrren, gamge_state, aliens, ship, ai_settings):
+def alien_short(scrren, game_state, aliens, ship, ai_settings):
     """判断子弹是否命中外星人"""
     bullets = ship.get_bullets()
     # 求子弹和外星人交集
-    collisions = pygame.sprite.groupcollide(aliens, bullets, True, True)
+    collisions = pygame.sprite.groupcollide(aliens, bullets, True, False)
 
     # 外星人都被消灭时重新创建外星人
     if 0 == len(aliens):
         bullets.empty()
         alien_num = ai_settings.cal_alien_num_line_default(scrren)
-        creat_fleet_alien(scrren, aliens, alien_num)
+        creat_fleet_alien(scrren, game_state.game_state, aliens, alien_num)
         ai_settings.set_alien_info_default(aliens, alien_num)
     # print collisions
 
@@ -105,10 +105,11 @@ def alien_short(scrren, gamge_state, aliens, ship, ai_settings):
 def shiphit_alienoverline(scrren, game_state, ship, aliens):
     """外星人和飞船碰撞和过线处理"""
 
-    # for alien in aliens:
-    #     # 任意一个外星人过线
-    #     if 0 == alien.get_distance_wall_top():
-    #         game_state.game_state = 'stop'
+    for alien in aliens:
+        # 任意一个外星人过线
+        if 0 > alien.get_distance_wall_top():
+            game_state.game_state = 'stop'
+            break
 
     if pygame.sprite.spritecollideany(ship, aliens):
         game_state.game_state = 'stop'
@@ -131,5 +132,12 @@ def shiphit_alienoverline(scrren, game_state, ship, aliens):
         else:
             sleep(5)
             sys.exit()
+
+  # #  elif 'running' == game_state.game_state:
+  # #      if 0 == alien.get_distance_wall_top():
+  #
+  #       if 0 == len(aliens):
+  #           creat_fleet_alien(scrren, game_state, aliens, aliens_num)
+
 
 

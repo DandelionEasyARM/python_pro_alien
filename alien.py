@@ -41,12 +41,12 @@ class Alien(Sprite):
         self.__speed = 1
         self.__min_distance_alien = 50
         self.__min_distance_wall = 40
-        self.__current_distance_alien_left = -1
-        self.__current_distance_alien_right = -1
-        self.__current_distance_wall_left = -1
-        self.__current_distance_wall_right = -1
-        self.__current_distance_bottom = -1
-        self.__current_distance_top = -1
+        self.__current_distance_alien_left = 0
+        self.__current_distance_alien_right = 0
+        self.__current_distance_wall_left = 0
+        self.__current_distance_wall_right = 0
+        self.__current_distance_bottom = 0
+        self.__current_distance_top = 0
 
     def blitme(self):
         """在指定的位置绘制外星人"""

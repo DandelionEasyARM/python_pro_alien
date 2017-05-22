@@ -11,22 +11,22 @@ class Settings():
 
         # 屏幕设置
         self.scrren_width = 650
-        self.scrren_height = 1000
+        self.scrren_height = 700
         self.bg_color = (255, 255, 255)
 
         # 飞船设置
-        self.ship_speed = 1
+        self.ship_speed = 10
         self.ship_bullet_allowed = 100
         self.ship_limit = 3
 
         # 子弹设置
-        self.bullet_speed = 5
-        self.bullet_width = 3
-        self.bullet_height = 8
+        self.bullet_speed = 1
+        self.bullet_width = 200
+        self.bullet_height = 80
         self.bullet_color = 0, 0, 0
 
         # 外星人设置
-        self.alien_speed_range = {'low': 0.05, 'high': 0.3}
+        self.alien_speed_range = {'low': 0.01, 'high': 0.14}
 
         self.alien_max_num = 10
 
